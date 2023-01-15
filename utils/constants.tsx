@@ -1,41 +1,87 @@
 import { BiFootball } from 'react-icons/bi';
 import { GiPistolGun, GiBroadsword, GiRayGun, GiWoodAxe, GiJetPack, GiPoliceTarget } from 'react-icons/gi';
 import { FaParachuteBox } from 'react-icons/fa';
+import GTALogo from 'utils/gta-grand-theft-auto-logo-svgrepo-com.svg';
+import FIFALogo from 'utils/fifa-23-logo-alt-2.png';
+import CSLogo from 'utils/counter-strike-svgrepo-com.svg';
+import RLLogo from 'utils/rocket-league-logo-B8DD38497D-seeklogo.com.png';
+import PUBGLogo from 'utils/pubg-1-logo-svgrepo-com.svg';
+import APEXLogo from 'utils/apex-legends-symbol-logos-2.png';
+import RUSTLogo from 'utils/771-7714850_madplaysrustxd-com-teamspeak-3-icons-rust.png';
+import ValorantLogo from 'utils/valorant-logo-1.png';
+import Image from 'next/image';
 
 export const topics = [
   {
     name: 'Counter-Strike',
-    icon: <GiPistolGun />,
+    icon: <Image 
+            src={CSLogo}
+            width={25}
+            height={25}
+            alt='GTA'
+          />,
   },
   {
-    name: 'Rocket League',
-    icon: <BiFootball />,
-  },
-  {
-    name: 'Dota 2',
-    icon: <GiBroadsword />,
-  },
-  {
-    name: 'PUBG',
-    icon: <FaParachuteBox />,
-  },
-  {
-    name: 'Call of Duty',
-    icon: <GiRayGun />,
+    name: 'Valorant',
+    icon: <Image 
+            src={ValorantLogo}
+            width={28}
+            height={28}
+            alt='GTA'
+          />,
   },
   {
     name: 'Rust',
-    icon: <GiWoodAxe />,
+    icon: <Image 
+            src={RUSTLogo}
+            width={25}
+            height={25}
+            alt='GTA'
+          />,
+  },
+  {
+    name: 'FIFA 23',
+    icon: <Image 
+            src={FIFALogo}
+            width={38}
+            height={38}
+            alt='GTA'
+          />,
   },
   {
     name: 'Apex Legends',
-    icon: <GiJetPack />,
+    icon: <Image 
+            src={APEXLogo}
+            width={24}
+            height={24}
+            alt='GTA'
+          />,
+  },
+  {
+    name: 'Rocket League',
+    icon: <Image 
+            src={RLLogo}
+            width={40}
+            height={40}
+            alt='GTA'
+          />,
   },
   {
     name: 'Grand Theft Auto V',
-    icon: <GiPoliceTarget />,
+    icon: <Image 
+            src={GTALogo}
+            width={30}
+            height={30}
+            alt='GTA'
+          />,
+  },
+  {
+    name: 'PUBG',
+    icon: <Image 
+            src={PUBGLogo}
+            width={30}
+            height={30}
+            alt='GTA'
+          />,
   },
 ];
-
-export const footerList1 = ['Contact', 'About', 'Careers', 'Cookies', 'Privacy', 'Rewards']
-export const footerList2 = [ 'Advertisers', 'Developers', 'Partners', 'Copyright']

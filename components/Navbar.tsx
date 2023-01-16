@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
-import { AiOutlineLogout } from 'react-icons/ai';
 import { GoogleLogin, googleLogout } from '@react-oauth/google'
-import { BiSearch } from 'react-icons/bi';
-import { IoMdAdd } from 'react-icons/io';
+import { BiLogOut, BiSearch } from 'react-icons/bi';
+import { IoMdAdd, IoMdArrowDropdown } from 'react-icons/io';
 
 import Logo from '../utils/arcane-logo.png';
 import { createOrGetUser } from '../utils';
@@ -16,6 +15,7 @@ import { IUser } from '../types';
 const Navbar = () => {
   const { userProfile, addUser, removeUser } = useAuthStore();
   const [searchValue, setSearchValue] = useState('')
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const handleSearch = (e: {preventDefault: () => void}) => {
@@ -49,7 +49,7 @@ const Navbar = () => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               className='bg-primary p-3 md:text-md font-medium border-2 border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 w-[300px] md:w-[350px] rounded-full  md:top-0'
-              placeholder='Search accounts and videos'
+              placeholder='Search for accounts and videos...'
             />
             <button
               onClick={handleSearch}
@@ -66,21 +66,27 @@ const Navbar = () => {
               <Link href="/upload">
                 <button className='border-2 py-1 px-2 md:px-4 text-md font-semibold flex items-center gap-2'>
                   <IoMdAdd className='text-xl'/>{` `}
-                  <span className='hidden md:block'>Upload </span>
+                  <span className='hidden md:block'>Create </span>
                 </button>
               </Link>
               {userProfile.image && (
                 <Link href={`/profile/${userProfile._id}`}>
-                <>
-                  <Image
-                    width={40}
-                    height={40}
-                    className="rounded-full cursor-pointer"
-                    src={userProfile.image}
-                    alt="Profile Picture"
-                  />
-                </>
-              </Link>
+                  
+                  <div className='flex lg:gap-2 justify-center items-center'>
+                    <>
+                      <Image
+                        width={40}
+                        height={40}
+                        className="rounded-full cursor-pointer"
+                        src={userProfile.image}
+                        alt="Profile Picture"
+                      />
+                    </>
+                    <div className='flex gap-1'>
+                      <p className='hidden lg:block font-medium text-md text-gray-600'>{userProfile.userName}</p>
+                    </div>
+                  </div>
+                </Link>
               )}
               <button
                 type='button'
@@ -90,7 +96,10 @@ const Navbar = () => {
                   removeUser();  
                 }}
                 >
-                  <AiOutlineLogout color='red' fontSize={25}/>
+                <div className='flex items-center justify-center gap-1'>
+                  <p className='hidden lg:block text-gray-400 text-md'>Logout</p>
+                  <BiLogOut size={20} className='text-gray-400'/>
+                </div>
               </button>
             </div>
           ) : (

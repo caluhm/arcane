@@ -25,8 +25,8 @@ export const topics = [
     name: 'Valorant',
     icon: <Image 
             src={ValorantLogo}
-            width={28}
-            height={28}
+            width={23}
+            height={20}
             alt='GTA'
           />,
   },
@@ -34,8 +34,8 @@ export const topics = [
     name: 'Rust',
     icon: <Image 
             src={RUSTLogo}
-            width={25}
-            height={25}
+            width={26}
+            height={26}
             alt='GTA'
           />,
   },
@@ -43,8 +43,8 @@ export const topics = [
     name: 'FIFA 23',
     icon: <Image 
             src={FIFALogo}
-            width={38}
-            height={38}
+            width={40}
+            height={25}
             alt='GTA'
           />,
   },
@@ -61,8 +61,8 @@ export const topics = [
     name: 'Rocket League',
     icon: <Image 
             src={RLLogo}
-            width={40}
-            height={40}
+            width={35}
+            height={15}
             alt='GTA'
           />,
   },

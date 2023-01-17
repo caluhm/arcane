@@ -1,14 +1,14 @@
 import { BiFootball } from 'react-icons/bi';
 import { GiPistolGun, GiBroadsword, GiRayGun, GiWoodAxe, GiJetPack, GiPoliceTarget } from 'react-icons/gi';
 import { FaParachuteBox } from 'react-icons/fa';
-import GTALogo from 'utils/gta-grand-theft-auto-logo-svgrepo-com.svg';
-import FIFALogo from 'utils/fifa-23-logo-alt-2.png';
-import CSLogo from 'utils/counter-strike-svgrepo-com.svg';
-import RLLogo from 'utils/rocket-league-logo-B8DD38497D-seeklogo.com.png';
-import PUBGLogo from 'utils/pubg-1-logo-svgrepo-com.svg';
-import APEXLogo from 'utils/apex-legends-symbol-logos-2.png';
-import RUSTLogo from 'utils/771-7714850_madplaysrustxd-com-teamspeak-3-icons-rust.png';
-import ValorantLogo from 'utils/valorant-logo-1.png';
+import GTALogo from './gta-grand-theft-auto-logo-svgrepo-com.svg';
+import FIFALogo from './fifa-23-logo-alt-2.png';
+import CSLogo from './counter-strike-svgrepo-com.svg';
+import RLLogo from './rocket-league-logo-B8DD38497D-seeklogo.com.png';
+import PUBGLogo from './pubg-1-logo-svgrepo-com.svg';
+import APEXLogo from './apex-legends-symbol-logos-2.png';
+import RUSTLogo from './771-7714850_madplaysrustxd-com-teamspeak-3-icons-rust.png';
+import ValorantLogo from './valorant-logo-1.png';
 import Image from 'next/image';
 
 export const topics = [

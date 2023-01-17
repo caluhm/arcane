@@ -10,7 +10,7 @@ import NoResults from '../../components/NoResults';
 import { IUser, Video } from '../../types';
 import { BASE_URL } from '../../utils';
 import useAuthStore from '../../store/authStore';
-import { userAgent } from 'next/server';
+
 
 const Search = ({ videos }: {videos: Video[]}) => {
   const [isAccounts, setIsAccounts] = useState(false);

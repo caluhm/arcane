@@ -12,7 +12,7 @@ import LikeButtonVideoCard from './LikeButtonVideoCard';
 import { MdInsertComment } from 'react-icons/md';
 import CommentButtonVideoCard from './CommentButtonVideoCard';
 import ViewsButtonVideoCard from './ViewsButtonVideoCard';
-import DeleteButtonVideoCard from './DeleteButtonVideoCard';
+import SettingsButtonVideoCard from './SettingsButtonVideoCard';
 
 
 interface IProps {
@@ -113,8 +113,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             </div>
           )}
         </div>
-        <div>
-          <div className='mt-10 px-10'>
+        
+          <div className='flex flex-col items-center content-center gap-1/2'>
             {userProfile && (
               <>
                 <LikeButtonVideoCard
@@ -125,13 +125,14 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                 comments={post.comments}/>
                 <ViewsButtonVideoCard />
                 {userProfile._id === post.postedBy._id && (
-                  <DeleteButtonVideoCard />
+                  <div className='mt-auto'>
+                    <SettingsButtonVideoCard />
+                  </div>
                 )}
               </>
             )}
           </div>
-          
-        </div>
+        
       </div>
     </div>
   )

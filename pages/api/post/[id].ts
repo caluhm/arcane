@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { uuid } from 'uuidv4';
 
-import { postDetailQuery } from '../../../utils/queries';
+import { postDetailQuery, singlePostQuery } from '../../../utils/queries';
 import { client } from '../../../utils/client';
+import { METHODS } from 'http';
 
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
@@ -30,5 +31,12 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         .commit()
 
         res.status(200).json(data);
+    } else if (req.method === 'DELETE') {
+      const { id } = req.query;
+      const query = singlePostQuery(id);
+
+      const data = client.delete({query}).then(console.log).catch(console.error);
+
+      res.status(200).json(data);
     }
 }

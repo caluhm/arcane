@@ -76,6 +76,17 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     }
   }
 
+  const handleDelete = async () => {
+    if(userProfile._id === post.postedBy._id) {
+      
+      const { data } = await axios.delete(`${BASE_URL}/api/post/${post._id}`)
+
+      setTimeout(() => {window.location.reload()}, 1500);
+      
+    }
+    
+  }
+
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
@@ -169,7 +180,9 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                 />
                 {userProfile._id === post.postedBy._id && (
                   <div className='mt-auto'>
-                    <SettingsButtonVideoCard />
+                    <SettingsButtonVideoCard 
+                      handleDelete={() => handleDelete()}
+                    />
                   </div>
                 )}
               </>

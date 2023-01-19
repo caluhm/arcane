@@ -198,3 +198,10 @@ export const topicPostsQuery = (topic: string | string[]) => {
 
   return query;
 };
+
+export const singlePostQuery = (postId: string | string[]) => {
+  const query = `*[_type == "post" && _id == '${postId}']`;
+   
+  return query;
+};
+

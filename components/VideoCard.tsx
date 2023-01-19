@@ -7,6 +7,12 @@ import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi'
 import { BsPlay, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
 import { GoVerified } from 'react-icons/go'
 import { Video } from '../types';
+import useAuthStore from '../store/authStore';
+import LikeButtonVideoCard from './LikeButtonVideoCard';
+import { MdInsertComment } from 'react-icons/md';
+import CommentButtonVideoCard from './CommentButtonVideoCard';
+import ViewsButtonVideoCard from './ViewsButtonVideoCard';
+import DeleteButtonVideoCard from './DeleteButtonVideoCard';
 
 
 interface IProps {
@@ -14,6 +20,7 @@ interface IProps {
 }
 
 const VideoCard: NextPage<IProps> = ({ post }) => {
+  const { userProfile }: any = useAuthStore();
   const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
@@ -105,6 +112,25 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               )}
             </div>
           )}
+        </div>
+        <div>
+          <div className='mt-10 px-10'>
+            {userProfile && (
+              <>
+                <LikeButtonVideoCard
+                  likes={post.likes}
+                  handleLike={() => handleLike(true)}
+                  handleDislike={() => handleLike(false)}/>
+                <CommentButtonVideoCard 
+                comments={post.comments}/>
+                <ViewsButtonVideoCard />
+                {userProfile._id === post.postedBy._id && (
+                  <DeleteButtonVideoCard />
+                )}
+              </>
+            )}
+          </div>
+          
         </div>
       </div>
     </div>

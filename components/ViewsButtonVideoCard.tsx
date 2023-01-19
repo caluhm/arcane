@@ -1,7 +1,11 @@
 import React from 'react'
 import { BsEyeFill } from 'react-icons/bs';
 
-const ViewsButtonVideoCard = ({}) => {
+interface IProps {
+  views: any[];
+}
+
+const ViewsButtonVideoCard = ({ views }: IProps) => {
   return (
     <div className='flex gap-6'>
       <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
@@ -11,7 +15,7 @@ const ViewsButtonVideoCard = ({}) => {
         >
           <BsEyeFill  className='text-lg md:text-xl lg:text-2xl'/>
         </div>
-        <p className='text-md font-semibold'>10</p>
+        <p className='text-md font-semibold'>{views?.length | 0}</p>
       </div>
     </div>
   )

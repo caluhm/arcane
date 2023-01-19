@@ -26,6 +26,13 @@ export interface Video {
         _ref: string;
       };
     }[];
+    views: {
+      postedBy: {
+        _id: string;
+        userName: string;
+        image: string;
+      };
+    }[];
     userId: string;
   }
   

@@ -13,6 +13,9 @@ import { MdInsertComment } from 'react-icons/md';
 import CommentButtonVideoCard from './CommentButtonVideoCard';
 import ViewsButtonVideoCard from './ViewsButtonVideoCard';
 import SettingsButtonVideoCard from './SettingsButtonVideoCard';
+import { BASE_URL } from '../utils';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 
 interface IProps {
@@ -20,11 +23,17 @@ interface IProps {
 }
 
 const VideoCard: NextPage<IProps> = ({ post }) => {
+  const [postRef, setPostRef] = useState(post);
   const { userProfile }: any = useAuthStore();
   const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  }
 
   const onVideoPress = () => {
    if(playing) {
@@ -41,6 +50,31 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       videoRef.current.muted = isVideoMuted;
     }
   }, [isVideoMuted])
+
+  const handleLike = async (like: boolean) => {
+    if(userProfile) {
+      const { data } = await axios.put(`${BASE_URL}/api/like`, {
+        userId: userProfile._id,
+        postId: post._id,
+        like
+      })
+
+      setPostRef({ ...postRef, likes: data.likes })
+      refreshData();
+    }
+  }
+
+  const handleView = async () => {
+    if(userProfile && (post.views === null || post.views.includes(userProfile))) {
+        const { data } = await axios.put(`${BASE_URL}/api/view`, {
+          userId: userProfile._id,
+          postId: post._id,
+        })
+
+      setPostRef({ ...postRef, views: data.views })
+      refreshData();
+    }
+  }
 
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
@@ -83,6 +117,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           className='rounded-3xl'>
           <Link href={`/detail/${post._id}`}>
             <video
+              onPlay={() => handleView()}
               loop
               ref={videoRef}
               className='lg:w-[600px] h-[300px] md:h-[400px] lg:h-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
@@ -120,10 +155,18 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                 <LikeButtonVideoCard
                   likes={post.likes}
                   handleLike={() => handleLike(true)}
-                  handleDislike={() => handleLike(false)}/>
-                <CommentButtonVideoCard 
-                comments={post.comments}/>
-                <ViewsButtonVideoCard />
+                  handleDislike={() => handleLike(false)}
+                />
+                <Link href={`/detail/${post._id}`}>
+                  <div>
+                    <CommentButtonVideoCard 
+                    comments={post.comments}
+                    />
+                  </div>
+                </Link>
+                <ViewsButtonVideoCard 
+                  views={post.views}
+                />
                 {userProfile._id === post.postedBy._id && (
                   <div className='mt-auto'>
                     <SettingsButtonVideoCard />

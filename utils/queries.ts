@@ -15,6 +15,7 @@ export const allPostsQuery = () => {
         image
       },
     likes,
+    views,
     comments[]{
       comment,
       _key,
@@ -45,7 +46,8 @@ export const postDetailQuery = (postId: string | string[]) => {
       userName,
       image
     },
-     likes,
+    likes,
+    views,
     comments[]{
       comment,
       _key,
@@ -75,6 +77,7 @@ export const searchPostsQuery = (searchTerm: string | string[]) => {
       image
     },
 likes,
+views,
     comments[]{
       comment,
       _key,
@@ -117,7 +120,7 @@ export const userCreatedPostsQuery = (userId: string | string[]) => {
       image
     },
  likes,
-
+ views,
     comments[]{
       comment,
       _key,
@@ -149,7 +152,7 @@ export const userLikedPostsQuery = (userId: string | string[]) => {
       image
     },
  likes,
-
+ views,
     comments[]{
       comment,
       _key,
@@ -181,7 +184,7 @@ export const topicPostsQuery = (topic: string | string[]) => {
       image
     },
  likes,
-
+ views,
     comments[]{
       comment,
       _key,

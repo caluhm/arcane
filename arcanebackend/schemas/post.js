@@ -44,6 +44,17 @@ export default {
         of: [{ type: 'comment' }],
       },
       {
+        name: 'views',
+        title: 'Views',
+        type: 'array',
+        of: [
+          {
+            type: 'reference',
+            to: [{ type: 'user' }],
+          },
+        ],
+      },
+      {
         name: 'topic',
         title: 'Topic',
         type: 'string',

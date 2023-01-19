@@ -9,7 +9,7 @@ interface IProps {
     likes: any[];
 }
 
-const LikeButton = ({ likes, handleLike, handleDislike}: IProps) => {
+const LikeButtonVideoCard = ({ likes, handleLike, handleDislike}: IProps) => {
   const [alreadyLiked, setAlreadyLiked] = useState(false)
   const { userProfile }: any = useAuthStore();
   const filterLikes = likes?.filter((item) => item._ref === userProfile?._id);
@@ -27,10 +27,10 @@ const LikeButton = ({ likes, handleLike, handleDislike}: IProps) => {
         <div className='flex flex-col justify-center items-center cursor-pointer'>
             {alreadyLiked ? (
                 <div 
-                    className='bg-primary rounded-full p-2 md:p-3 text-[#40b7de]'
+                    className='bg-primary rounded-full p-2 md:p-2 lg:p-3 text-[#40b7de]'
                     onClick={handleDislike}
                 >
-                    <MdFavorite className='text-lg md:text-2xl'/>
+                    <MdFavorite className='text-lg md:text-xl lg:text-2xl'/>
                 </div>
             ) : (
                 <div 
@@ -46,4 +46,4 @@ const LikeButton = ({ likes, handleLike, handleDislike}: IProps) => {
   )
 }
 
-export default LikeButton
+export default LikeButtonVideoCard

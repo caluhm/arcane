@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';
 import { MdOutlineCancel } from 'react-icons/md';
-import { BsFillPlayFill } from 'react-icons/bs';
+import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi'
 import axios from 'axios';
 
@@ -21,8 +21,8 @@ interface IProps {
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
   const [playing, setPlaying] = useState(false);
-  const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const { userProfile }: any = useAuthStore();
   const [comment, setComment] = useState('');
@@ -37,12 +37,6 @@ const Detail = ({ postDetails }: IProps) => {
       setPlaying(true);
      }
   }
-
-  useEffect(() => {
-    if(post && videoRef?.current) {
-      videoRef.current.muted = isVideoMuted;
-    }
-  }, [post, isVideoMuted])
 
   if(!post) return null;
 
@@ -77,7 +71,11 @@ const Detail = ({ postDetails }: IProps) => {
 
   return (
     <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
-      <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-black'>
+      <div 
+        className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-black'
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}  
+      >
         <div className='absolute top-6 left-2 lg:left-6 flex gap-6 z-50'>
           <p className='cursor-pointer' onClick={() => router.back()}>
             <MdOutlineCancel className='text-white text-[35px]'/>
@@ -86,36 +84,29 @@ const Detail = ({ postDetails }: IProps) => {
         <div className='relative'>
           <div className='lg:h-[100vh] h-[60vh]'>
             <video
+            controls
             ref={videoRef}
-            loop
-            onClick={onVideoClick}
+            
             src={post?.video?.asset.url}
             className="h-full cursor-pointer"
             >
             </video>
-          </div>   
+          </div>
+          {isHover && ( 
           <div className='absolute top-[45%] left-[45%] cursor-pointer'>
-            {!playing && (
+            {playing ? (
+              <button onClick={onVideoClick}>
+                <BsFillPauseFill className='text-white text-6xl lg:text-8xl'/>
+              </button>
+            ) : (
               <button onClick={onVideoClick}>
                 <BsFillPlayFill className='text-white text-6xl lg:text-8xl'/>
               </button>
             )}
-          </div>   
-        </div>
-
-        <div className='absolute bottom-5 lg:bottom-10 right-5 lg:right-10 cursor-pointer'>
-          {isVideoMuted ? (
-            <button onClick={() => setIsVideoMuted(false)}>
-              <HiVolumeOff className='text-white text-2xl lg:text-4xl'/>
-            </button>
-          ) : (
-            <button onClick={() => setIsVideoMuted(true)}>
-              <HiVolumeUp className='text-white text-2xl lg:text-4xl'/>
-            </button>
-          )}
+          </div>
+        )} 
         </div>
       </div>
-
       <div className='relative w-[1000px] md:w-[900px] lg:w-[700px]'>
         <div className='lg:mt-20 mt-10'>
 

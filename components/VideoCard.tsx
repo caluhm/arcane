@@ -27,7 +27,6 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   const { userProfile }: any = useAuthStore();
   const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
 
@@ -45,12 +44,6 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
    }
   }
 
-  useEffect(() => {
-    if(videoRef?.current) {
-      videoRef.current.muted = isVideoMuted;
-    }
-  }, [isVideoMuted])
-
   const handleLike = async (like: boolean) => {
     if(userProfile) {
       const { data } = await axios.put(`${BASE_URL}/api/like`, {
@@ -65,16 +58,15 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   }
 
   const handleView = async () => {
-    if(userProfile && (post.views === null || post.views.includes(userProfile))) {
+    if(userProfile) {
         const { data } = await axios.put(`${BASE_URL}/api/view`, {
           userId: userProfile._id,
           postId: post._id,
         })
-
       setPostRef({ ...postRef, views: data.views })
       refreshData();
-    }
-  }
+    } 
+}
 
   const handleDelete = async () => {
     if(userProfile._id === post.postedBy._id) {
@@ -128,32 +120,24 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           className='rounded-3xl'>
           <Link href={`/detail/${post._id}`}>
             <video
-              onPlay={() => handleView()}
-              loop
+              controls
               ref={videoRef}
               className='lg:w-[600px] h-[300px] md:h-[400px] lg:h-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
-              src={post.video.asset.url}>
+              src={post.video.asset.url}
+              onEnded={() => handleView()}
+            >
             </video>
           </Link>
 
           {isHover && (
-            <div className='absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3'>
+            <div className='lg:block md:block hidden absolute lg:bottom-[225px] lg:left-[260px] md:bottom-[170px] md:left-[75px] lg:w-[200px] md:w-[100px] cursor-pointer'>
               {playing ? (
                 <button onClick={onVideoPress}>
-                    <BsFillPauseFill className='text-black text-2xl lg:text-4xl'/>
+                    <BsFillPauseFill className='text-white text-5xl lg:text-6xl'/>
                 </button>
               ) : (
                 <button onClick={onVideoPress}>
-                  <BsFillPlayFill className='text-black text-2xl lg:text-4xl'/>
-                </button>
-              )}
-              {isVideoMuted ? (
-                <button onClick={() => setIsVideoMuted(false)}>
-                  <HiVolumeOff className='text-black text-2xl lg:text-4xl'/>
-                </button>
-              ) : (
-                <button onClick={() => setIsVideoMuted(true)}>
-                  <HiVolumeUp className='text-black text-2xl lg:text-4xl'/>
+                  <BsFillPlayFill className='text-white text-5xl lg:text-6xl'/>
                 </button>
               )}
             </div>

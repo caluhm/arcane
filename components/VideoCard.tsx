@@ -82,10 +82,10 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
-        <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
-          <div className='md:w-16 md:h-16 w-10 h-10'>
+        <div className='flex gap-3 p-2 font-semibold rounded'>
+          <div className='lg:w-16 lg:h-16 w-10 h-10 cursor-pointer'>
             <Link href={`/profile/${post.postedBy._id}`}>
-              <>
+              
                 <Image
                   width={62}
                   height={62}
@@ -94,21 +94,28 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                   alt="Profile Picture"
                   layout='responsive'
                 />
-              </>
+              
             </Link>
           </div>
           <div>
-          <Link href={`/profile/${post.postedBy._id}`}>
-            <div className='flex items-center gap-2'>
-              <p className='flex gap-2 items-center md:text-md font-bold text-primary'>
-                {post.postedBy.userName} {` `}
-                <GoVerified className='text-blue-400 text-md'/>
+            <Link href={`/profile/${post.postedBy._id}`}>
+              <div className='flex items-center gap-2 cursor-pointer'>
+                <p className='flex gap-2 items-center text-md font-bold text-primary'>
+                  {post.postedBy.userName} {` `}
+                  <GoVerified className='text-blue-400 text-md'/>
+                </p>
+              </div>
+            </Link>
+            <div className='flex gap-3 flex-row items-center content-center'>
+              <p className='font-medium md:text-md text-gray-700 hidden md:block'>
+                {post.caption}
               </p>
-              <p className='capitalize font-medium text-xs text-gray-500 hidden md:block'>
-                {post.postedBy.userName}
-              </p>
-            </div>
-          </Link>
+              <Link href={`/?topic=${post.topic}`} key={post.topic}>
+                <span className='hidden md:block md:text-sm text-gray-700 hover:text-[#40b7de] font-bold block capitalize cursor-pointer'>
+                • {post.topic}
+                </span>       
+              </Link>
+           </div>
           </div>
         </div>
       </div>

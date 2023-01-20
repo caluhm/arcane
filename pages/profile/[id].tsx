@@ -54,6 +54,11 @@ const Profile = ({ data }: IProps) => {
                 <p className='capitalize md:text-xl text-gray-400 text-sm'>
                   {user.userName} 
                 </p>
+                <div className='pt-5'>
+                    <button className='py-1/2 px-4 border-2 rounded-md bg-gray-200 border-gray-300 text-sm font-semibold'>
+                        <span className=''>Follow </span>
+                    </button>
+                </div>
             </div>
         </div>
 

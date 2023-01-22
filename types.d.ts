@@ -42,4 +42,5 @@ export interface Video {
     _type: string;
     userName: string;
     image: string;
+    followers: IUser[];
   }

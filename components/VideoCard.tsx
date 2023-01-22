@@ -111,8 +111,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                 {post.caption}
               </p>
               <Link href={`/?topic=${post.topic}`} key={post.topic}>
-                <span className='hidden md:block md:text-sm text-gray-700 hover:text-[#40b7de] font-bold block capitalize cursor-pointer'>
-                • {post.topic}
+                <span className='hidden md:block md:text-sm text-gray-700 hover:text-[#40b7de] font-bold capitalize cursor-pointer'>
+                - {post.topic}
                 </span>       
               </Link>
            </div>

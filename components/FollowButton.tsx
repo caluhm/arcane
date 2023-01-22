@@ -1,0 +1,44 @@
+import React, { useState, useEffect } from 'react';
+import useAuthStore from '../store/authStore';
+
+interface IProps {
+    handleFollow: () => void;
+    handleUnfollow: () => void;
+    followers: any[];
+}
+
+const FollowButton = ({ followers, handleFollow, handleUnfollow}: IProps) => {
+  const { userProfile }: any = useAuthStore();
+  const [alreadyFollowing, setAlreadyFollowing] = useState(true);
+  const filterFollowers = followers?.filter((item) => item._ref === userProfile?._id);
+
+  useEffect(() => {
+    if(filterFollowers?.length > 0) {
+        setAlreadyFollowing(true);     
+    } else {
+        setAlreadyFollowing(false);
+    }
+  }, [filterFollowers, followers])
+
+  return (
+    <div className='pt-5'>
+        {alreadyFollowing ? (
+            <button 
+                className='py-1 px-4 border-2 rounded-md text-white bg-[#40b7de] border-[#a7e9ff] text-sm font-semibold'
+                onClick={handleUnfollow}
+            >
+                <span>Following</span>
+            </button>
+        ) : (
+            <button 
+                className='py-1 px-4 border-2 rounded-md bg-gray-200 border-gray-300 text-sm font-semibold'
+                onClick={handleFollow}
+            >
+                <span>Follow</span>
+            </button>
+        )}
+    </div>
+  )
+}
+
+export default FollowButton

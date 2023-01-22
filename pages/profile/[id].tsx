@@ -7,6 +7,9 @@ import VideoCard from '../../components/VideoCard';
 import NoResults from '../../components/NoResults';
 import { IUser, Video } from '../../types';
 import { BASE_URL } from '../../utils';
+import useAuthStore from '../../store/authStore';
+import FollowButton from '../../components/FollowButton';
+import { useRouter } from 'next/router';
 
 interface IProps {
     data: {
@@ -20,6 +23,12 @@ const Profile = ({ data }: IProps) => {
   const [showUserVideos, setShowUserVideos] = useState(true);
   const [videosList, setVideosList] = useState<Video[]>([]);
   const { user, userVideos, userLikedVideos } = data;
+  const { userProfile }: any = useAuthStore();
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  }
 
   const videos = showUserVideos ? 'border-b-2 border-black' : 'text-gray-400'
   const liked = !showUserVideos ? 'border-b-2 border-black' : 'text-gray-400'
@@ -31,6 +40,17 @@ const Profile = ({ data }: IProps) => {
         setVideosList(userLikedVideos);
     }
   }, [showUserVideos, userLikedVideos, userVideos])
+
+  const handleFollow = async (follow: boolean) => {
+    if(userProfile) {
+        const { data } = await axios.put(`${BASE_URL}/api/follow`, {
+            userFollowedById: user._id,
+            userFollowerId: userProfile._id,
+            follow
+        })
+        refreshData();
+    }
+  }
 
   return (
     <div className='w-full'>
@@ -54,11 +74,15 @@ const Profile = ({ data }: IProps) => {
                 <p className='capitalize md:text-xl text-gray-400 text-sm'>
                   {user.userName} 
                 </p>
-                <div className='pt-5'>
-                    <button className='py-1/2 px-4 border-2 rounded-md bg-gray-200 border-gray-300 text-sm font-semibold'>
-                        <span className=''>Follow </span>
-                    </button>
-                </div>
+                {userProfile ? (
+                <FollowButton 
+                    followers={user.followers}    
+                    handleFollow={() => handleFollow(true)}
+                    handleUnfollow={() => handleFollow(false)}
+                />
+                ) : (
+                  <p className='capitalize md:text-md italic text-gray-400 text-sm'>Login to follow this account!</p>         
+                )}
             </div>
         </div>
 

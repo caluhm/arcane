@@ -12,6 +12,17 @@ export default {
             name: 'image',
             title: 'Image',
             type: 'string',
-        }
+        },
+        {
+            name: 'followers',
+            title: 'Followers',
+            type: 'array',
+            of: [
+              {
+                type: 'reference',
+                to: [{ type: 'user' }],
+              },
+            ],
+          },
     ]
 }

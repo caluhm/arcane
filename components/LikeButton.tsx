@@ -27,14 +27,14 @@ const LikeButton = ({ likes, handleLike, handleDislike}: IProps) => {
         <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
             {alreadyLiked ? (
                 <div 
-                    className='bg-primary rounded-full p-2 md:p-4 text-[#40b7de]'
+                    className='bg-primary rounded-full p-2 md:p-2 lg:p-3 text-[#40b7de]'
                     onClick={handleDislike}
                 >
                     <MdFavorite className='text-lg md:text-2xl'/>
                 </div>
             ) : (
                 <div 
-                    className='bg-primary rounded-full p-2 md:p-4'
+                    className='bg-primary rounded-full p-2 md:p-2 lg:p-3'
                     onClick={handleLike}
                 >
                     <MdFavorite className='text-lg md:text-2xl'/>

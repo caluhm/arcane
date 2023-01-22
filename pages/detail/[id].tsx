@@ -13,6 +13,9 @@ import { Video } from '../../types';
 import useAuthStore from '../../store/authStore';
 import LikeButton from '../../components/LikeButton';
 import Comments from '../../components/Comments';
+import CommentButtonVideoCard from '../../components/CommentButtonVideoCard';
+import ViewsButtonVideoCard from '../../components/ViewsButtonVideoCard';
+import SettingsButtonVideoCard from '../../components/SettingsButtonVideoCard';
 
 interface IProps {
   postDetails: Video,
@@ -67,6 +70,19 @@ const Detail = ({ postDetails }: IProps) => {
       setComment('');
       setIsPostingComment(false);
     }
+  }
+
+  const handleDelete = async () => {
+    if(userProfile._id === post.postedBy._id) {
+      
+      const { data } = await axios.delete(`${BASE_URL}/api/post/${post._id}`)
+
+      router.back();
+
+      setTimeout(() => {window.location.reload()}, 1000);
+      
+    }
+    
   }
 
   return (
@@ -140,13 +156,28 @@ const Detail = ({ postDetails }: IProps) => {
             </div>
           </div>
           <p className='px-10 text-lg text-gray-600'>{post.caption}</p>
-          <div className='mt-10 px-10'>
+          <div className='flex flex-row gap-6 mt-10 px-10'>
             {userProfile && (
-              <LikeButton 
-                likes={post.likes}
-                handleLike={() => handleLike(true)}
-                handleDislike={() => handleLike(false)}
-              />
+              <>
+                <LikeButton 
+                  likes={post.likes}
+                  handleLike={() => handleLike(true)}
+                  handleDislike={() => handleLike(false)}
+                />
+                <CommentButtonVideoCard 
+                  comments={post.comments}
+                />
+                <ViewsButtonVideoCard
+                  views={post.views}
+                />
+                {userProfile._id === post.postedBy._id && (
+                  <div className='ml-auto'>
+                    <SettingsButtonVideoCard 
+                      handleDelete={() => handleDelete()}
+                    />
+                </div>
+                )}
+                </>
             )}
           </div>
           <Comments 

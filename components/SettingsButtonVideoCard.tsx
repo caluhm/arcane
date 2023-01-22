@@ -13,7 +13,7 @@ const SettingsButtonVideoCard = ({ handleDelete }: IProps) => {
               className='bg-primary rounded-full p-2 md:p-2 lg:p-3'
               onClick={handleDelete}
             >
-              <MdDelete className='text-lg md:text-xl lg:text-2xl'/>
+              <MdDelete className='text-[#ac2a2a] text-lg md:text-xl lg:text-2xl'/>
             </div>
           </div>
         </div>

@@ -81,7 +81,7 @@ const Profile = ({ data }: IProps) => {
                         handleUnfollow={() => handleFollow(false)}
                     />
                 ) : (
-                    <p className='capitalize md:text-md italic text-gray-400 text-sm'>Login to follow this account!</p>         
+                    null       
                 )}
             </div>
         </div>

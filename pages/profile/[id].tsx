@@ -75,13 +75,13 @@ const Profile = ({ data }: IProps) => {
                   {user.userName} 
                 </p>
                 {userProfile ? (
-                <FollowButton 
-                    followers={user.followers}    
-                    handleFollow={() => handleFollow(true)}
-                    handleUnfollow={() => handleFollow(false)}
-                />
+                    <FollowButton 
+                        followers={user.followers}    
+                        handleFollow={() => handleFollow(true)}
+                        handleUnfollow={() => handleFollow(false)}
+                    />
                 ) : (
-                  <p className='capitalize md:text-md italic text-gray-400 text-sm'>Login to follow this account!</p>         
+                    <p className='capitalize md:text-md italic text-gray-400 text-sm'>Login to follow this account!</p>         
                 )}
             </div>
         </div>

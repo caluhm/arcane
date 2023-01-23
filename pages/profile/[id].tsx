@@ -67,14 +67,17 @@ const Profile = ({ data }: IProps) => {
             </div>
 
             <div className='flex flex-col justify-center'>
-                <p className='md:text-2xl tracking-wider flex gap-1 items-center justify-center text-md font-bold text-primary lowercase'>
+                <p className='md:text-2xl tracking-wider flex gap-1 items-center text-md font-bold text-primary lowercase'>
                   {user.userName.replaceAll(' ', '')}
                 <GoVerified className='text-blue-400'/>
                 </p>
                 <p className='capitalize md:text-xl text-gray-400 text-sm'>
                   {user.userName} 
                 </p>
-                {userProfile ? (
+                <div className='flex flex-row gap-5 items-center content-center pt-3'>
+                <p className='md:text-md font-bold text-gray-700 text-sm'>{user.followers?.length | 0} <span className='md:text-md font-medium text-gray-400 text-sm'>Followers</span></p>
+                {userProfile && userProfile._id != user._id? (
+
                     <FollowButton 
                         followers={user.followers}    
                         handleFollow={() => handleFollow(true)}
@@ -83,6 +86,7 @@ const Profile = ({ data }: IProps) => {
                 ) : (
                     null       
                 )}
+                </div>
             </div>
         </div>
 

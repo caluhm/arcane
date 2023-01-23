@@ -1,9 +1,11 @@
 import type { NextPage } from 'next';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Video } from '../types';
 import VideoCard from '../components/VideoCard';
 import NoResults from '../components/NoResults';
 import { BASE_URL } from '../utils';
+import useAuthStore from '../store/authStore';
 
 
 interface IProps {
@@ -11,12 +13,41 @@ interface IProps {
 }
 
 const Home = ({ videos }: IProps) => {
-  console.log(videos);
+  const [showUserFeed, setShowUserFeed] = useState(true);
+  const [videosList, setVideosList] = useState<Video[]>([]);
+
+  const { userProfile }: any = useAuthStore();
+  const followingVideos = videos.filter(video => video.postedBy.followers?.some(user => user._ref === userProfile._id))
+
+  const yourfeed = showUserFeed ? 'border-b-2 border-black' : 'text-gray-400'
+  const following = !showUserFeed ? 'border-b-2 border-black' : 'text-gray-400'
+
+  useEffect(() => {
+    if(showUserFeed) {
+        setVideosList(videos);
+    } else {
+        setVideosList(followingVideos);
+    }
+  }, [showUserFeed, videos])
 
   return (
     <div className='flex flex-col gap-10 videos h-full'>
-      {videos.length ? (
-        videos.map((video: Video) => (
+      <div className='flex gap-10 border-b-2 border-gray-200 bg-white w-auto'>
+        <p 
+          className={`text-xl font-semibold cursor-pointer mt-1 ${yourfeed}`} 
+          onClick={() => setShowUserFeed(true)}
+        >
+          Your Feed
+        </p>
+        <p 
+          className={`text-xl font-semibold cursor-pointer mt-1 ${following}`} 
+          onClick={() => setShowUserFeed(false)}
+        >
+          Following
+        </p>
+      </div>
+      {videosList.length ? (
+        videosList.map((video: Video) => (
           <VideoCard post={video} key={video._id}/>
         ))
       ) : (

@@ -12,6 +12,7 @@ export interface Video {
       _id: string;
       userName: string;
       image: string;
+      followers: IUser[];
     };
     likes: {
       postedBy: {
@@ -38,6 +39,7 @@ export interface Video {
   }
   
   export interface IUser {
+    _ref: any;
     _id: string;
     _type: string;
     userName: string;

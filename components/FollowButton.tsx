@@ -21,10 +21,10 @@ const FollowButton = ({ followers, handleFollow, handleUnfollow}: IProps) => {
   }, [filterFollowers, followers])
 
   return (
-    <div className='pt-5'>
+    <div>
         {alreadyFollowing ? (
             <div className='flex flex-row gap-5 items-center content-center'>
-            <p className='md:text-md font-bold text-gray-700 text-sm'>{followers?.length | 0} <span className='md:text-md font-medium text-gray-400 text-sm'>Followers</span></p>
+            
             
             <button 
                 className='py-1 px-4 border-2 rounded-md text-white bg-[#40b7de] border-[#a7e9ff] text-sm font-semibold'
@@ -35,7 +35,7 @@ const FollowButton = ({ followers, handleFollow, handleUnfollow}: IProps) => {
             </div>
         ) : (
             <div className='flex flex-row gap-5 items-center content-center'>
-                <p className='md:text-md font-bold text-gray-700 text-sm'>{followers?.length | 0} <span className='md:text-md font-medium text-gray-400 text-sm'>Followers</span></p>
+               
             <button 
                 className='py-1 px-4 border-2 rounded-md bg-gray-200 border-gray-300 text-sm font-semibold'
                 onClick={handleFollow}

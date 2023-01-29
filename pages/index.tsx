@@ -31,7 +31,7 @@ const Home = ({ videos }: IProps) => {
   }, [showUserFeed, videos])
 
   return (
-    <div className='flex flex-col gap-10 videos h-full'>
+    <div className='flex flex-col gap-10 h-full overflow-y-scroll'>
       <div className='flex gap-10 border-b-2 border-gray-200 bg-white w-auto'>
         <p 
           className={`text-xl font-semibold cursor-pointer mt-1 ${yourfeed}`} 

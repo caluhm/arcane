@@ -17,7 +17,7 @@ const Home = ({ videos }: IProps) => {
   const [videosList, setVideosList] = useState<Video[]>([]);
 
   const { userProfile }: any = useAuthStore();
-  const followingVideos = videos.filter(video => video.postedBy.followers?.some(user => user._ref === userProfile._id))
+  const followingVideos = videos.filter(video => video.postedBy.followers?.some(user => user._ref === userProfile?._id))
 
   const yourfeed = showUserFeed ? 'border-b-2 border-black' : 'text-gray-400'
   const following = !showUserFeed ? 'border-b-2 border-black' : 'text-gray-400'
@@ -32,6 +32,7 @@ const Home = ({ videos }: IProps) => {
 
   return (
     <div className='flex flex-col gap-10 h-full overflow-y-scroll'>
+      {userProfile && (
       <div className='flex gap-10 border-b-2 border-gray-200 bg-white w-auto'>
         <p 
           className={`text-xl font-semibold cursor-pointer mt-1 ${yourfeed}`} 
@@ -46,6 +47,7 @@ const Home = ({ videos }: IProps) => {
           Following
         </p>
       </div>
+      )}
       {videosList.length ? (
         videosList.map((video: Video) => (
           <VideoCard post={video} key={video._id}/>
